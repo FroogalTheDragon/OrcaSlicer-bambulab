@@ -1,3 +1,71 @@
+## Update 09.05.2026
+
+Bambu Lab published a statement on their blog. That statement does not give me any direct way to answer the accusations in the same place.
+
+In that statement, Bambu Lab described the modification as something that:
+
+- injected "falsified identity metadata",
+- "pretended to be the official Bambu Studio client",
+- "crosses into impersonation",
+- was "bypassing a technical limitation",
+- could create infrastructure problems comparable to service overload caused by unauthorized traffic.
+
+These are very serious public accusations.
+
+Bambu Lab did not write to me with these specific public claims first. They also refused my request to publish the full correspondence. Instead, they published a one-sided public statement where I cannot reply directly.
+
+In practice, this presents me to the public as someone bypassing security, impersonating their client, and creating a risk to their infrastructure. I reject that characterization.
+
+Below is the code fragment Bambu Lab referred to:
+
+![Code referenced by Bambu Lab](./code.jpg)
+
+User-Agent is not authentication. It is only self-declared client metadata. Any program can set any User-Agent.
+
+The most important part is this: the User-Agent construction comes directly from Bambu Lab's own public AGPL Bambu Studio code.
+
+Bambu Studio AGPL code:
+
+https://github.com/bambulab/BambuStudio/blob/master/src/slic3r/Utils/Http.cpp#L175
+
+```cpp
+::curl_easy_setopt(curl, CURLOPT_USERAGENT, SLIC3R_APP_NAME "/" SLIC3R_VERSION);
+```
+
+The constants are defined here:
+
+https://github.com/bambulab/BambuStudio/blob/master/version.inc
+
+```cmake
+set(SLIC3R_APP_NAME "BambuStudio")
+set(SLIC3R_VERSION "02.06.01.55")
+```
+
+After compilation, this is logically equivalent to:
+
+```cpp
+CURLOPT_USERAGENT = "BambuStudio/02.06.01.55";
+```
+
+So what exactly is the problem here?
+
+This User-Agent construction is not reverse engineered. It is not taken from a proprietary binary. It is not hidden. It is directly present in Bambu Studio's public AGPL source code.
+
+So on what basis can anyone claim that I am not allowed to use this specific part of AGPL-licensed code under the AGPL license?
+
+Bambu Studio on Linux can be used as-is, without any changes from me, and this code path already exists there.
+
+If Bambu Lab separates its optional network plugin from the AGPL code by saying that the plugin is optional and not part of the AGPL source, because otherwise they would have an AGPL problem themselves, then they cannot also claim that my fork, based only on AGPL Bambu Studio code, suddenly becomes responsible for that optional plugin or violates the ToS because that plugin exists.
+
+The user decides whether to install and use the optional plugin. My fork cannot be responsible for how an external optional plugin behaves or for what a user chooses to do through it.
+
+That responsibility belongs to the plugin, the user, and the system it connects to - not to an AGPL fork of Bambu Studio.
+
+I also want to add one personal note. I previously helped Bambu Studio users with Linux and Wayland issues, including on Bambu Lab's own GitHub. That makes it especially absurd to me that I am now being publicly presented as someone dangerous to their infrastructure.
+
+These claims are now being repeated publicly. Since I cannot reply under Bambu Lab's blog post, I am publishing this response here.
+
+
 <h1 align="center">Support</h1>
 
 <p align="center">
