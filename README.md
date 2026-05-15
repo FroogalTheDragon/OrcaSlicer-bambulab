@@ -1,3 +1,18 @@
+## Update 15.05.2026 - `bambu_networking` and AGPL
+
+Bambu Studio is licensed under AGPL v3, but Bambu Lab's own README states that the `bambu networking plugin` is based on non-free libraries. The public Bambu Studio source code shows that this plugin is not an independent add-on: the application downloads it, installs it, versions it against `SLIC3R_VERSION`, dynamically loads it as `bambu_networking.dll` / `libbambu_networking.so` / `libbambu_networking.dylib`, resolves 108 `bambu_network_*` functions, passes C++ structures and callbacks, gives the plugin a callback to the main UI thread, initializes a file-transfer ABI from the same module and uses it for login, monitoring, LAN/cloud print, MakerWorld/MakerLab, camera functions, device messaging, presets, filaments and telemetry.
+
+AGPL v3 says that "Corresponding Source" includes the source code of shared libraries and dynamically linked subprograms that the program is specifically designed to require through intimate data communication or control flow. Based on the public Bambu Studio code, `bambu_networking` fits this description.
+
+In my opinion, distributing Bambu Studio as AGPL together with the closed `bambu_networking` component, without complete Corresponding Source under AGPL-compatible terms, violates the AGPL.
+
+This is not an argument that Bambu Lab must allow every fork into its private cloud. This is a source-code compliance issue: Bambu Studio is an AGPL program, and its own public code shows deep integration with a closed dynamic runtime component.
+
+Detailed AGPL violation analysis:
+
+[Why `bambu_networking` violates the AGPL](./bambu_agpl.md)
+
+---
 <h2 align="center">Thank you for the support</h2>
 
 <p align="center">
